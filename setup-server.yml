@@ -1,0 +1,6 @@
+---
+- name: "Configure NGINX server"
+  hosts: all
+  gather_facts: true
+  roles:
+    - role: nginx_server_conf

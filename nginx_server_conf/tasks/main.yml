@@ -1,0 +1,38 @@
+---
+- name: "Installing nginx"
+  apt:
+    name: nginx
+    state: latest
+    update_cache: yes
+
+- name: "Remove default nginx.conf" 
+  ansible.builtin.file:
+    path: /etc/nginx/nginx.conf
+    state: absent
+
+- name: "Copy nginx.conf file"
+  ansible.builtin.copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    mode: '0644'
+
+- name: "Make website directory"
+  ansible.builtin.file:
+    path: /etc/nginx/website
+    state: directory
+
+- name: "Copy index.html"
+  ansible.builtin.copy:
+    src: index.html
+    dest: /etc/nginx/website
+    mode: '0755'
+
+- name: "Staring nginx Service"
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: "Reload nginx service"
+  ansible.builtin.shell: |
+    nginx -s reload
