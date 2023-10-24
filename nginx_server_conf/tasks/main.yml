@@ -36,3 +36,7 @@
 - name: "Reload nginx service"
   ansible.builtin.shell: |
     nginx -s reload
+
+- name: "Changing permissions"
+  ansible.builtin.shell: |
+    chmod 777 /etc/nginx && chown -R ubuntu:ubuntu /etc/nginx/
